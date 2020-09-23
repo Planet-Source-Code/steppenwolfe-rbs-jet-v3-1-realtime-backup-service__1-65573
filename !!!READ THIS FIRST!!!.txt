@@ -1,0 +1,26 @@
+INSTRUCTIONS:
+Compiling the Service:
+Open the project in the \Service folder first.
+
+1) Register the typelib library. The first time the Indexer project is opened, (prjRPSJet.vbp),
+you will get a missing reference/file error. This because the .tlb file has to be registered first, before it
+can be used by the project. To register the file, simply uncheck the reference, save the project, then open
+the references dialog again, (Project > References), browse to the project folder\Tlb folder, and
+add the ntsvchp.tlb file back to the reference list, then save the project again, it's that simple..
+
+2) Compile the rbsidx.exe service into the \Index folder.
+
+3) Run the prjRBSJetHarness.vbp project.
+
+
+Debugging the Service:
+My experience was that it can be debugged, simply unrem the 2 doevents calls, and the 'goto handler' call in
+mMain.bas. You have to step though -to- the Directory_Change routine, then set a breakpoint within that routine, (like when a match is made, or a flag is thrown). Because of the open event handles though, it is best to limit a debug to one pass, (before End), then close and restart the project, (or you may experience the unexpected).
+You can experiment with debugs by setting a breakpoint then changing a watched file, and catch the change 
+interceptors in action.
+
+Notes:
+It can take up to one minute before a new file is added to the watch list. Interval is determined by distance in cycles from flag check. At each one minute interval, (60 cycles), the master flag is read, if set, this forces a read of monitor properties from the registry.
+
+Anyways, hope ya like it
+John
